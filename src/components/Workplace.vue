@@ -6,7 +6,9 @@ import Trim from './Trim.vue';
 import Volume from './Volume.vue';
 import AddImage from './AddImage.vue';
 import AddText from './AddText.vue';
+import Default from './Default.vue'
 const state = ref(0);
+const current = ref(0);
 </script>
 
 <template>
@@ -95,22 +97,17 @@ const state = ref(0);
     <div class="flex flex-col items-center justify-center mt-5">
         <p class="text-gray-500">111.avi</p>
         <div class="screen border border-solid border-white mt-1">
-            <!-- <img src="../assets/movie.png" /> -->
+            <video style="height: 100%; width: 100%">
+                <source src="../assets/bear.mp4" type="video/mp4"/>
+            </video>
         </div>
-        <div class="flex items-center justify-between bg-black h-20 mx-20 mt-3">
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
-            <img class="h-full" src="../assets/download.jpg" />
+        <div class="flex items-center justify-between bg-black h-20 mx-20 mt-3 v-96">
+            <img v-for="i in 63" class="h-full" :src="`../src/fr5/00${parseInt(i/10)}${i%10}.jpg`" :style="`width: ${1200 / 63}px`" 
+            @click="current=i" />
         </div>
     </div>
     <div class="mt-3">
+        <Default v-if="state === 0"/>
         <Trim v-if="state === 1" />
         <Volume v-if="state === 2" />
         <AddImage v-if="state === 3" />
@@ -122,7 +119,7 @@ const state = ref(0);
 .screen {
     width: 640px;
     height: 350px;
-    background: url('../assets/download.jpg');
+    /* background: url('../fr5/0001.jpg'); */
     background-size: cover;
 }
 </style>
