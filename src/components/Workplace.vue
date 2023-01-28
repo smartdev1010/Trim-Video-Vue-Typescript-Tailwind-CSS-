@@ -1,25 +1,26 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
+// This starter template is using Vueborder-slate-900 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref, onMounted } from "vue";
+import Trim from './Trim.vue';
 const state = ref(0);
 </script>
 
 <template>
-    <header class="pt-16 flex justify-between">
+    <header class="pt-10 flex justify-between">
         <div class="navbar ml-20 flex">
-            <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg" @click="state = 1">
+            <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg "
+                @click="state = 1">
                 <svg style="color: white" class="fill-current w-5 h-6" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20">
                     <path
                         d="M9.77 11.5l5.34 3.91c.44.33 1.24.59 1.79.59H20L6.89 6.38A3.5 3.5 0 1 0 5.5 8.37L7.73 10 5.5 11.63a3.5 3.5 0 1 0 1.38 1.99l2.9-2.12zM3.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM15.1 4.59A3.53 3.53 0 0 1 16.9 4H20l-7.5 5.5L10.45 8l4.65-3.41z"
                         fill="white"></path>
                 </svg>
-                <span>Clip</span>
+                <span>Trim</span>
             </div>
-            <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg" @click="state = 2">
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+                @click="state = 2">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     class="bi bi-volume-up-fill fill-current w-5 h-6" viewBox="0 0 16 16">
                     <path
@@ -34,8 +35,8 @@ const state = ref(0);
                 </svg>
                 <span>Volume</span>
             </div>
-            <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg" @click="state = 3">
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+                @click="state = 3">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6">
                     <g>
@@ -47,8 +48,8 @@ const state = ref(0);
                 </svg>
                 <span>Add Image</span>
             </div>
-            <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg" @click="state = 4">
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+                @click="state = 4">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6" fill="none">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,7 +63,7 @@ const state = ref(0);
         </div>
         <div class="mr-20 flex">
             <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg">
+                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6">
                     <path
@@ -72,8 +73,9 @@ const state = ref(0);
                 <span>Restore</span>
             </div>
             <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 hover:bg-slate-900 hover:cursor-pointer rounded-lg px-6 py-2 text-lg">
-                <svg style="color: white" height="21" viewBox="0 0 21 21" width="21" class="fill-current w-5 h-6" xmlns="http://www.w3.org/2000/svg">
+                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg">
+                <svg style="color: white" height="21" viewBox="0 0 21 21" width="21" class="fill-current w-5 h-6"
+                    xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" transform="translate(4 3)">
                         <path d="m10.595 10.5 2.905-3-2.905-3" fill="transparent"></path>
@@ -89,20 +91,35 @@ const state = ref(0);
 
     <div class="flex flex-col items-center justify-center mt-5">
         <p class="text-gray-500">111.avi</p>
-        <div class="bg-transparent screen border border-solid border-white mt-1" >
+        <div class="screen border border-solid border-white mt-1">
+            <!-- <img src="../assets/movie.png" /> -->
+        </div>
+        <div class="flex items-center justify-between bg-black h-20 mx-20 mt-3">
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
+            <img class="h-full" src="../assets/download.jpg" />
         </div>
     </div>
-    <!-- <div>
-        <h1 v-if="state === 1">Clip</h1>
+    <div class="mt-3">
+        <Trim v-if="state === 1" />
         <h1 v-if="state === 2">Volume</h1>
         <h1 v-if="state === 3">Image</h1>
         <h1 v-if="state === 4">Text</h1>
-    </div> -->
+    </div>
 </template>
 
 <style scoped>
-.screen{
+.screen {
     width: 640px;
-    height: 400px;
+    height: 350px;
+    background: url('../assets/download.jpg');
+    background-size: cover;
 }
 </style>

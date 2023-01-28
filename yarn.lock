@@ -569,6 +569,11 @@ lilconfig@^2.0.5, lilconfig@^2.0.6:
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.6.tgz#32a384558bd58af3d4c6e077dd1ad1d397bc69d4"
   integrity sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==
 
+lodash.flattendeep@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
+  integrity sha512-uHaJFihxmJcEX3kT4I23ABqKKalJ/zDrDg0lsFtc1h+3uw49SIJ5beyhx5ExVRti3AvKoOJngIj7xz3oylPdWQ==
+
 magic-string@^0.25.7:
   version "0.25.9"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.9.tgz#de7f9faf91ef8a1c91d02c2e5314c8277dbcdd1c"
@@ -841,6 +846,13 @@ vite@^4.0.0:
     rollup "^3.7.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vue-classnames@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vue-classnames/-/vue-classnames-0.1.0.tgz#cdbe851e03e2acf72986a7e0dfd3cafb3aa56124"
+  integrity sha512-VS4LQxDz5DvLXifYsi7K6OCxWNL7wUgC5I6rx90hYaubiTyntY0I6f/yQWXJrY/uZBy2rPtwJa3VOQC56EXawQ==
+  dependencies:
+    lodash.flattendeep "^4.4.0"
 
 vue-template-compiler@^2.7.14:
   version "2.7.14"
