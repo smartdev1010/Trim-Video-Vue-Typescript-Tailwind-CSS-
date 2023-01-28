@@ -97,17 +97,17 @@ const current = ref(0);
     <div class="flex flex-col items-center justify-center mt-5">
         <p class="text-gray-500">111.avi</p>
         <div class="screen border border-solid border-white mt-1">
-            <video style="height: 100%; width: 100%">
-                <source src="../assets/bear.mp4" type="video/mp4"/>
+            <video id="video" style="height: 100%; width: 100%">
+                <source src="../assets/bear.mp4" type="video/mp4" />
             </video>
         </div>
         <div class="flex items-center justify-between bg-black h-20 mx-20 mt-3 v-96">
-            <img v-for="i in 63" class="h-full" :src="`../src/fr5/00${parseInt(i/10)}${i%10}.jpg`" :style="`width: ${1200 / 63}px`" 
-            @click="current=i" />
+            <img v-for="i in 63" class="h-full" :src="`../src/fr5/00${parseInt(i / 10)}${i % 10}.jpg`"
+                :style="`width: ${1200 / 63}px`" @click="current = i" />
         </div>
     </div>
     <div class="mt-3">
-        <Default v-if="state === 0"/>
+        <Default v-if="state === 0" />
         <Trim v-if="state === 1" />
         <Volume v-if="state === 2" />
         <AddImage v-if="state === 3" />

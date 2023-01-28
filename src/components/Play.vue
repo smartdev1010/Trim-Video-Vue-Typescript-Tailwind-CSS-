@@ -3,11 +3,16 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Settings from './Settings.vue';
 import { onMounted } from "vue";
+
+function play() {
+    document.getElementById('video').play();
+}
+
 </script>
 
 <template>
     <div
-        class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent bg-slate-900  hover:cursor-pointer px-6 py-2 text-lg rounded-lg mr-3">
+        class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent bg-slate-900  hover:cursor-pointer px-6 py-2 text-lg rounded-lg mr-3" @click="play">
 
         <svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-play fill-current w-5 h-6" viewBox="0 0 16 16">
