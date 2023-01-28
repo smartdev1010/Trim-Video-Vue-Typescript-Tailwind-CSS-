@@ -3,13 +3,16 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref, onMounted } from "vue";
 import Trim from './Trim.vue';
+import Volume from './Volume.vue';
+import AddImage from './AddImage.vue';
+import AddText from './AddText.vue';
 const state = ref(0);
 </script>
 
 <template>
     <header class="pt-10 flex justify-between">
         <div class="navbar ml-20 flex">
-            <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg "
+            <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent border-b-slate-900 hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg "
                 @click="state = 1">
                 <svg style="color: white" class="fill-current w-5 h-6" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20">
@@ -19,7 +22,7 @@ const state = ref(0);
                 </svg>
                 <span>Trim</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
                 @click="state = 2">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     class="bi bi-volume-up-fill fill-current w-5 h-6" viewBox="0 0 16 16">
@@ -35,7 +38,7 @@ const state = ref(0);
                 </svg>
                 <span>Volume</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
                 @click="state = 3">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6">
@@ -48,7 +51,7 @@ const state = ref(0);
                 </svg>
                 <span>Add Image</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
                 @click="state = 4">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6" fill="none">
@@ -109,9 +112,9 @@ const state = ref(0);
     </div>
     <div class="mt-3">
         <Trim v-if="state === 1" />
-        <h1 v-if="state === 2">Volume</h1>
-        <h1 v-if="state === 3">Image</h1>
-        <h1 v-if="state === 4">Text</h1>
+        <Volume v-if="state === 2" />
+        <AddImage v-if="state === 3" />
+        <AddText v-if="state === 4" />
     </div>
 </template>
 
