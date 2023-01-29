@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Play from './Play.vue';
 import Settings from './Settings.vue';
+import Time from './Time.vue';
 import { onMounted } from "vue";
 </script>
 
@@ -11,9 +12,9 @@ import { onMounted } from "vue";
         <div class="flex">
             <Play />
             <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent bg-slate-900  hover:cursor-pointer px-6 py-2 text-lg rounded-lg mr-3">
-                <input class="bg-transparent" value="00:00" type="time" />
-                <input class="bg-transparent" value="00:00" type="time" />
+                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent bg-slate-900 px-6 py-2 text-lg rounded-lg mr-3">
+                <Time time="0" />
+                <Time time="12.7" />
             </div>
             <div
                 class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent bg-slate-900  hover:cursor-pointer px-6 py-2 text-lg rounded-lg">

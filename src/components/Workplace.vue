@@ -9,12 +9,21 @@ import AddText from './AddText.vue';
 import Default from './Default.vue'
 const state = ref(0);
 const current = ref(0);
+const curWidth = ref(100);
+function Move(e){
+    curWidth.current = e.x;
+    document.getElementsByClassName('draw-line')[0].style.width = curWidth.current - document.getElementsByClassName('draw-line')[0].parentNode.offsetLeft + "px";
+}
+function test(){
+    var video = document.getElementById('video');
+    console.log(video.duration);
+}
 </script>
 
 <template>
     <header class="pt-10 flex justify-between">
         <div class="navbar ml-20 flex">
-            <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent border-b-slate-900 hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg "
+            <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent border-b-slate-900 hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm "
                 @click="state = 1">
                 <svg style="color: white" class="fill-current w-5 h-6" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20">
@@ -24,7 +33,7 @@ const current = ref(0);
                 </svg>
                 <span>Trim</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 2">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     class="bi bi-volume-up-fill fill-current w-5 h-6" viewBox="0 0 16 16">
@@ -40,7 +49,7 @@ const current = ref(0);
                 </svg>
                 <span>Volume</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 3">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6">
@@ -53,7 +62,7 @@ const current = ref(0);
                 </svg>
                 <span>Add Image</span>
             </div>
-            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg border-b-slate-900"
+            <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 4">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6" fill="none">
@@ -68,7 +77,7 @@ const current = ref(0);
         </div>
         <div class="mr-20 flex">
             <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg">
+                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     class="fill-current w-5 h-6">
                     <path
@@ -78,7 +87,7 @@ const current = ref(0);
                 <span>Restore</span>
             </div>
             <div
-                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-lg">
+                class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm">
                 <svg style="color: white" height="21" viewBox="0 0 21 21" width="21" class="fill-current w-5 h-6"
                     xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
@@ -101,9 +110,11 @@ const current = ref(0);
                 <source src="../assets/bear.mp4" type="video/mp4" />
             </video>
         </div>
-        <div class="flex items-center justify-between bg-black h-20 mx-20 mt-3 v-96">
-            <img v-for="i in 63" class="h-full" :src="`../src/fr5/00${parseInt(i / 10)}${i % 10}.jpg`"
-                :style="`width: ${1200 / 63}px`" @click="current = i" />
+        <div class="flex items-center justify-between bg-black h-15 mx-20 mt-3 v-96" @mousemove="Move($event)" style="position:relative" @click="test">
+            <img v-for="i in 10" class="h-full" :src="`../src/fr5/00${parseInt(i * 6 / 10)}${i * 6 % 10}.jpg`"
+               style="width: 120px" @click="`console.log(${i})`" />
+            <div class="draw-line" :style="`width: ${curWidth.current}px`">
+            </div>
         </div>
     </div>
     <div class="mt-3">
@@ -118,8 +129,16 @@ const current = ref(0);
 <style scoped>
 .screen {
     width: 640px;
-    height: 350px;
+    height: 380px;
     /* background: url('../fr5/0001.jpg'); */
     background-size: cover;
+}
+.draw-line{
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    background-color: transparent;
+    border-right: 2px solid white;
 }
 </style>
