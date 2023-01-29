@@ -2,11 +2,6 @@
 export default {
     props: {
         time: { type: Number },
-    },
-    methods: {
-
-    },
-    data() {
     }
 }
 </script>
