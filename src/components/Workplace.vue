@@ -7,16 +7,21 @@ import Volume from './Volume.vue';
 import AddImage from './AddImage.vue';
 import AddText from './AddText.vue';
 import Default from './Default.vue'
-const state = ref(0);
-const current = ref(0);
-const curWidth = ref(100);
-function Move(e){
-    curWidth.current = e.x;
-    document.getElementsByClassName('draw-line')[0].style.width = curWidth.current - document.getElementsByClassName('draw-line')[0].parentNode.offsetLeft + "px";
+const state = ref(0);   // Trim, Volume, Add Image, Add Text
+const selected_pos = ref(100); // selected pos in timeline
+const current_pos = ref(100); // current pos with cursor in timeline
+const duration = ref(0);
+function Move(e) {
+    current_pos.current = e.x;
+    document.getElementsByClassName('draw-line-current')[0].style.width = current_pos.current - document.getElementsByClassName('draw-line-current')[0].parentNode.offsetLeft + "px";
 }
-function test(){
+function timelineSelect(e) {
+    selected_pos.current = e.x;
+    document.getElementsByClassName('draw-line-selected')[0].style.width = selected_pos.current - document.getElementsByClassName('draw-line-selected')[0].parentNode.offsetLeft + "px";
+}
+function test() {
     var video = document.getElementById('video');
-    console.log(video.duration);
+    duration.current = video.duration;
 }
 </script>
 
@@ -106,14 +111,17 @@ function test(){
     <div class="flex flex-col items-center justify-center mt-5">
         <p class="text-gray-500">111.avi</p>
         <div class="screen border border-solid border-white mt-1">
-            <video id="video" style="height: 100%; width: 100%">
+            <video id="video" style="height: 100%; width: 100%" @canplay="test">
                 <source src="../assets/bear.mp4" type="video/mp4" />
             </video>
         </div>
-        <div class="flex items-center justify-between bg-black h-15 mx-20 mt-3 v-96" @mousemove="Move($event)" style="position:relative" @click="test">
+        <div class="flex items-center justify-between bg-black h-15 mx-20 mt-3 v-96" @mousemove="Move($event)"
+            @mousedown="timelineSelect($event)" style="position:relative" @click="test">
             <img v-for="i in 10" class="h-full" :src="`../src/fr5/00${parseInt(i * 6 / 10)}${i * 6 % 10}.jpg`"
-               style="width: 120px" @click="`console.log(${i})`" />
-            <div class="draw-line" :style="`width: ${curWidth.current}px`">
+                style="width: 120px" @click="`console.log(${i})`" />
+            <div class="draw-line-current" :style="`width: ${current_pos.current}px`">
+            </div>
+            <div class="draw-line-selected" :style="`width: ${selected_pos.current}px`">
             </div>
         </div>
     </div>
@@ -133,12 +141,22 @@ function test(){
     /* background: url('../fr5/0001.jpg'); */
     background-size: cover;
 }
-.draw-line{
+
+.draw-line-selected {
     position: absolute;
     left: 0px;
     height: 100%;
     top: 0px;
     background-color: transparent;
     border-right: 2px solid white;
+}
+
+.draw-line-current {
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    background-color: transparent;
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
 }
 </style>

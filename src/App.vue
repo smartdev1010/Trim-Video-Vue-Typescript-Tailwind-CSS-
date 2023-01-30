@@ -4,6 +4,7 @@
 import { onMounted } from "vue";
 import Upload from './components/Upload.vue';
 import Workplace from './components/Workplace.vue';
+
 </script>
 
 <template>

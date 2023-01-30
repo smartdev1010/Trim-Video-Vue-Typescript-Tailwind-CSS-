@@ -1,9 +1,9 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Play from './Play.vue';
-import Settings from './Settings.vue';
-import Time from './Time.vue';
+import Play from './utils/Play.vue';
+import Settings from './utils/Settings.vue';
+import Time from './utils/Time.vue';
 import { onMounted } from "vue";
 </script>
 

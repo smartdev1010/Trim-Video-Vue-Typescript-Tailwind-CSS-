@@ -1,8 +1,31 @@
-<script setup>
+<script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { useFileDialog } from '@vueuse/core'
+import { useDropZone } from '@vueuse/core'
+import router from '../router'
+const { files, open, reset } = useFileDialog();
 
+function selectFile() {
+    open();
+}
+
+const filesData = ref<{ name: string; size: number; type: string; lastModified: number }[]>([])
+function onDrop(files: File[] | null) {
+    filesData.value = []
+    if (files) {
+        filesData.value = files.map(file => ({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            lastModified: file.lastModified,
+        }))
+    }
+    // router.push('/work');
+}
+const dropZoneRef = ref<HTMLElement>()
+const { isOverDropZone } = useDropZone(dropZoneRef, onDrop)
 </script>
 
 <template>
@@ -15,11 +38,12 @@ import { onMounted } from "vue";
 
     <div class="flex flex-col gap-16 items-center justify-center">
         <button
-            class="border border-white text-white bg-transparent text-2xl hover:px-20 px-10 py-4 rounded-xl inline-flex items-center transition-all duration-100">
+            class="border border-white text-white bg-transparent text-2xl hover:px-20 px-10 py-4 rounded-xl inline-flex items-center transition-all duration-100"
+            @click="selectFile">
             <span>Open file</span>
         </button>
-        <div
-            class="flex flex gap-5 items-center justify-center border border-white text-gray-300 bg-transparent rounded-xl px-20 py-4 text-2xl">
+        <div class="flex flex gap-5 items-center justify-center border border-white text-gray-300 bg-transparent rounded-xl px-20 py-4 text-2xl"
+            ref="dropZoneRef" :value="isOverDropZone">
             <svg class="fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
             </svg>
