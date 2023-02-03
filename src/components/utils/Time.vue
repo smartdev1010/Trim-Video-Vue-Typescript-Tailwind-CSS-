@@ -20,12 +20,23 @@ export default {
 .inc {
     border-width: 5px;
     border-style: solid;
+    border-color: transparent transparent rgba(255, 255, 255, 0.5) transparent;
+}
+.inc:hover {
+    border-width: 5px;
+    border-style: solid;
     border-color: transparent transparent white transparent;
 }
-
 .dec {
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.5) transparent transparent transparent;
+}
+.dec:hover {
     border-width: 5px;
     border-style: solid;
     border-color: white transparent transparent transparent;
 }
+
+
 </style>

@@ -7,27 +7,57 @@ import Volume from './Volume.vue';
 import AddImage from './AddImage.vue';
 import AddText from './AddText.vue';
 import Default from './Default.vue'
-const state = ref(0);   // Trim, Volume, Add Image, Add Text
-const selected_pos = ref(100); // selected pos in timeline
-const current_pos = ref(100); // current pos with cursor in timeline
-const duration = ref(0);
+
+// Variables Definition
+const state = ref(1);   // Trim, Volume, Add Image, Add Text
+const selected_pos = ref(0); // selected pos in timeline
+const current_pos = ref(0); // current pos with cursor in timeline
+const duration = ref(0);    // current video duration
+const timeSelected = ref(0); // selected time show element
+const timeCurrent = ref(0); // current time show element
+
+// Functions Definition
+
+onMounted(() => {
+    timeSelected.value.style.left = document.getElementsByClassName('draw-line-selected')[0].parentNode.offsetLeft - 38 + "px";
+
+    timeCurrent.value.style.left = -100 + "px";
+    timeCurrent.value.style.color = 'rgba(255, 255, 255, 0.5)';
+
+})
+
+// Occur mouse move event in video timeline
 function Move(e) {
-    current_pos.current = e.x;
-    document.getElementsByClassName('draw-line-current')[0].style.width = current_pos.current - document.getElementsByClassName('draw-line-current')[0].parentNode.offsetLeft + "px";
+    current_pos.value = e.x - document.getElementsByClassName('draw-line-current')[0].parentNode.offsetLeft;
+    document.getElementsByClassName('draw-line-current')[0].style.width = current_pos.value + "px";
+
+    timeCurrent.value.style.left = e.x - 38 + "px";
 }
+
+// Occur mouse click event in video timeline
 function timelineSelect(e) {
-    selected_pos.current = e.x;
-    document.getElementsByClassName('draw-line-selected')[0].style.width = selected_pos.current - document.getElementsByClassName('draw-line-selected')[0].parentNode.offsetLeft + "px";
-}
-function test() {
+    selected_pos.value = e.x - document.getElementsByClassName('draw-line-selected')[0].parentNode.offsetLeft;
+    document.getElementsByClassName('draw-line-selected')[0].style.width = selected_pos.value + "px";
+    timeSelected.value.style.left = e.x - 38 + "px";
+
     var video = document.getElementById('video');
-    duration.current = video.duration;
+    // console.log(selected_pos.value / 1200 * duration.value);
+    video.currentTime = selected_pos.value / 1200 * duration.value;
+}
+
+// Get duration of current video
+function getDuration() {
+    var video = document.getElementById('video');
+    duration.value = video.duration;
 }
 </script>
 
 <template>
-    <header class="pt-10 flex justify-between">
+    <header class="pt-5 flex justify-between">
+        <!---------------------- Navbar --------------------->
         <div class="navbar ml-20 flex">
+
+            <!-- Trim Button -->
             <div class="flex gap-3 items-center justify-center text-gray-300 border border-transparent border-b-slate-900 hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm "
                 @click="state = 1">
                 <svg style="color: white" class="fill-current w-5 h-6" xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +68,7 @@ function test() {
                 </svg>
                 <span>Trim</span>
             </div>
+            <!-- Volume button -->
             <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 2">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -54,6 +85,7 @@ function test() {
                 </svg>
                 <span>Volume</span>
             </div>
+            <!-- Add Image Button -->
             <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 3">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -67,6 +99,7 @@ function test() {
                 </svg>
                 <span>Add Image</span>
             </div>
+            <!-- Add Text Button -->
             <div class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm border-b-slate-900"
                 @click="state = 4">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -80,7 +113,9 @@ function test() {
                 <span>Add Text</span>
             </div>
         </div>
+
         <div class="mr-20 flex">
+            <!-- Restore Button -->
             <div
                 class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm">
                 <svg style="color: white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -91,6 +126,7 @@ function test() {
                 </svg>
                 <span>Restore</span>
             </div>
+            <!-- Close Button -->
             <div
                 class="flex flex gap-3 items-center justify-center text-gray-300 border border-transparent hover:border-b-white hover:cursor-pointer px-6 py-2 text-sm">
                 <svg style="color: white" height="21" viewBox="0 0 21 21" width="21" class="fill-current w-5 h-6"
@@ -107,24 +143,47 @@ function test() {
             </div>
         </div>
     </header>
-
+    <!---------------- Video & Timeline Section ---------------->
     <div class="flex flex-col items-center justify-center mt-5">
+        <!--Video Url -->
         <p class="text-gray-500">111.avi</p>
+        <!-- Video Screen -->
         <div class="screen border border-solid border-white mt-1">
-            <video id="video" style="height: 100%; width: 100%" @canplay="test">
+            <video id="video" style="height: 100%; width: 100%" @canplay="getDuration">
                 <source src="../assets/bear.mp4" type="video/mp4" />
             </video>
         </div>
-        <div class="flex items-center justify-between bg-black h-15 mx-20 mt-3 v-96" @mousemove="Move($event)"
+        <!-- Show Time -->
+        <div style="position: relative; width: 100%;">
+            <!-- Selected Time -->
+            <div class=" show-time tooltip bg-white text-slate-900 pl-2 pr-2 mt-2 rounded-lg" ref="timeSelected">
+                {{ parseInt(parseInt(selected_pos / 1200 * duration / 60) / 10) + "" + parseInt(selected_pos / 1200 *
+                duration / 60) % 10 }}:
+                {{ parseInt(parseInt(selected_pos / 1200 * duration) % 60 / 10) + "" + parseInt(selected_pos / 1200 *
+                duration) % 60 % 10 }}:
+                {{ parseInt(selected_pos / 1200 * duration * 10) % 10 }}
+            </div>
+            <!-- Current Time -->
+            <div class=" show-time text-white pl-2 pr-2 mt-2 rounded-lg" ref="timeCurrent">
+                {{ parseInt(parseInt(current_pos / 1200 * duration / 60) / 10) + "" + parseInt(current_pos / 1200 *
+                duration / 60) % 10 }}:
+                {{ parseInt(parseInt(current_pos / 1200 * duration) % 60 / 10) + "" + parseInt(current_pos / 1200 *
+                duration) % 60 % 10 }}:
+                {{ parseInt(current_pos / 1200 * duration * 10) % 10 }}
+            </div>
+        </div>
+        <!-- TimeLine Section -->
+        <div class="flex items-center justify-between bg-transparent h-15 mx-20 mt-10 v-96" @mousemove="Move($event)"
             @mousedown="timelineSelect($event)" style="position:relative" @click="test">
             <img v-for="i in 10" class="h-full" :src="`../src/fr5/00${parseInt(i * 6 / 10)}${i * 6 % 10}.jpg`"
                 style="width: 120px" @click="`console.log(${i})`" />
-            <div class="draw-line-current" :style="`width: ${current_pos.current}px`">
+            <div class="draw-line-current" ref="lineCurrent" :style="`width: ${current_pos.value}px`">
             </div>
-            <div class="draw-line-selected" :style="`width: ${selected_pos.current}px`">
+            <div class="draw-line-selected" ref="lineSelected" :style="`width: ${selected_pos.value}px`">
             </div>
         </div>
     </div>
+    <!-- Other Componenets -->
     <div class="mt-3">
         <Default v-if="state === 0" />
         <Trim v-if="state === 1" />
@@ -158,5 +217,20 @@ function test() {
     top: 0px;
     background-color: transparent;
     border-right: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.show-time {
+    position: absolute;
+}
+
+.tooltip:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
 }
 </style>
